@@ -1,0 +1,22 @@
+# ninja log v7
+0	647	1763843300103222234	CMakeFiles/CourseWork.dir/main.cpp.o	ea5cec6c86c08a12
+651	758	1763843300753879691	CourseWork	415f73e6c078607d
+5	133	1763845788310002301	build.ninja	4c5e1a16bb508160
+5	133	1763845788310002301	/Users/oksanamikhalyncuk/Documents/ЧНУ/CourseWork/build/cmake_install.cmake	4c5e1a16bb508160
+3	1222	1763845788316873987	CMakeFiles/FootballManagement.dir/src/InputValidator.cpp.o	3e7ab6596f1213a6
+1	1262	1763845788314622357	CMakeFiles/FootballManagement.dir/src/ContractDetails.cpp.o	2c54543b4b607687
+0	1325	1763845788314493937	CMakeFiles/FootballManagement.dir/src/ClubManager.cpp.o	13a3cef96b5a8414
+0	1340	1763845788314175264	CMakeFiles/FootballManagement.dir/src/AuthManager.cpp.o	f4bc08ba0fb8a18d
+1	1351	1763845788315483416	CMakeFiles/FootballManagement.dir/src/FileManager.cpp.o	76e7b895b37dfec9
+10	1106	1763849019267672616	CMakeFiles/FootballManagement.dir/src/Menu.cpp.o	e7823a4ed51b0dc3
+9	1157	1763849019266261136	CMakeFiles/FootballManagement.dir/src/FieldPlayer.cpp.o	f387c46ffb705d1e
+10	1177	1763849019267454904	CMakeFiles/FootballManagement.dir/src/Goalkeeper.cpp.o	5e86b470e07cb2e5
+11	1189	1763849019268491836	CMakeFiles/FootballManagement.dir/src/User.cpp.o	3af0d1b37a644347
+8	1191	1763849019265503250	CMakeFiles/FootballManagement.dir/src/AuthManager.cpp.o	f4bc08ba0fb8a18d
+9	1201	1763849019266010257	CMakeFiles/FootballManagement.dir/src/ContractedPlayer.cpp.o	94055b083d38e4b2
+9	1205	1763849019266968314	CMakeFiles/FootballManagement.dir/src/FreeAgent.cpp.o	b8bfefc678ea8f3f
+8	1243	1763849019265822796	CMakeFiles/FootballManagement.dir/src/ClubManager.cpp.o	13a3cef96b5a8414
+9	1272	1763849019266433097	CMakeFiles/FootballManagement.dir/src/FileManager.cpp.o	76e7b895b37dfec9
+1111	1475	1763849020368304531	CMakeFiles/FootballManagement.dir/src/main.cpp.o	3538a41ef1ecd945
+11	1506	1763849019267974787	CMakeFiles/FootballManagement.dir/src/Player.cpp.o	1c22b6054d129aa1
+1506	1612	1763849020763957534	FootballManagement	823db63b724b71a0

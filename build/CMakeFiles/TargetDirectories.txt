@@ -1,0 +1,3 @@
+/Users/oksanamikhalyncuk/Documents/ЧНУ/CourseWork/build/CMakeFiles/FootballManagement.dir
+/Users/oksanamikhalyncuk/Documents/ЧНУ/CourseWork/build/CMakeFiles/edit_cache.dir
+/Users/oksanamikhalyncuk/Documents/ЧНУ/CourseWork/build/CMakeFiles/rebuild_cache.dir
