@@ -300,11 +300,11 @@ namespace FootballManagement
         }
         ss << ","
 
-        // трансфер
-        <<
-        "\"listedForTransfer\":" << (listedForTransfer_
-                                         ? "true"
-                                         : "false") << ","
+            // трансфер
+            <<
+            "\"listedForTransfer\":" << (listedForTransfer_
+                                             ? "true"
+                                             : "false") << ","
             << "\"transferFee\":" << std::fixed << std::setprecision(2) <<
             transferFee_ << ","
             << "\"transferConditions\":\"" << transferConditions_ << "\""
@@ -388,7 +388,6 @@ namespace FootballManagement
         if (!until.empty()) contractDetails_.SetContractUntil(until);
         if (loan)
         {
-
             try
             {
                 if (!loanEnd.empty())
@@ -404,7 +403,8 @@ namespace FootballManagement
             }
             catch (const std::exception& e)
             {
-                std::cout << "[ПОПЕРЕДЖЕННЯ] Некоректна loanEndDate у даних: " << e.what() << "\n";
+                std::cout << "[ПОПЕРЕДЖЕННЯ] Некоректна loanEndDate у даних: "
+                    << e.what() << "\n";
                 // Безпечний варіант: залишити без оренди або повернути з оренди
                 // contractDetails_.ReturnFromLoan();
             }

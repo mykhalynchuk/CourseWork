@@ -196,6 +196,7 @@ namespace FootballManagement
     void FieldPlayer::ShowInfo() const
     {
         std::cout << "\n=== Інформація про польового гравця ===\n";
+        std::cout << "ID: " << GetPlayerId() << "\n";
         std::cout << "Ім’я: " << GetName()
             << " | Вік: " << GetAge()
             << " | Позиція: " << PositionToString(position_) << "\n";

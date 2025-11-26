@@ -159,6 +159,7 @@ namespace FootballManagement
     void Goalkeeper::ShowInfo() const
     {
         std::cout << "\n=== ІНФОРМАЦІЯ ПРО ВОРОТАРЯ ===\n";
+        std::cout << "ID: " << GetPlayerId() << "\n";
         std::cout << "Ім’я: " << GetName()
             << " | Вік: " << GetAge()
             << " | Статус: " << GetStatus() << "\n";

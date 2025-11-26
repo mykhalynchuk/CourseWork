@@ -1,91 +1,163 @@
 #pragma once
 
-// using
 #include <memory>
-
-// namespace / deps
 #include "ClubManager.h"
 #include "FileManager.h"
 
+/**
+ * @file Menu.h
+ * @brief Оголошення класу текстового меню системи керування футбольним клубом.
+ */
+
 namespace FootballManagement
 {
-    /**
-     * @file Menu.h
-     * @brief Текстове меню керування системою: автентифікація,
-     *        операції з гравцями та керування користувачами.
-     */
-    class Menu
-    {
-    // Поля
-    private:
-        std::shared_ptr<ClubManager> clubManager_; ///< Менеджер складу клубу.
-        FileManager fileManager_;                  ///< Файловий менеджер.
-        bool isRunning_;                           ///< Прапорець циклу роботи.
+   /**
+    * @class Menu
+    * @brief Реалізує текстове меню застосунку.
+    *
+    * Функції:
+    * - автентифікація користувача;
+    * - робота з гравцями (CRUD);
+    * - пошук, сортування, фільтрація;
+    * - підписання вільних агентів;
+    * - керування користувачами (для адміністратора);
+    * - збереження/завантаження даних.
+    */
+   class Menu
+   {
+   // === Поля ===
+   private:
+      std::shared_ptr<ClubManager> clubManager_; ///< Менеджер складу клубу.
+      FileManager fileManager_;                  ///< Менеджер файлів (users/players).
+      bool isRunning_;                           ///< Прапорець основного циклу.
 
-    // Конструктори/деструктор
-    public:
-        /**
-         * @brief Створює меню.
-         * @param clubManager Вказівник на менеджер клубу.
-         */
-        explicit Menu(std::shared_ptr<ClubManager> clubManager);
+   // === Конструктори/деструктор ===
+   public:
+      /**
+       * @brief Конструктор.
+       * @param clubManager Спільний вказівник на ClubManager.
+       */
+      explicit Menu(std::shared_ptr<ClubManager> clubManager);
 
-        /// @brief Віртуальний деструктор.
-        virtual ~Menu() = default;
+      /**
+       * @brief Віртуальний деструктор.
+       */
+      virtual ~Menu() = default;
 
-    // Методи (публічні)
-    public:
-        /// @brief Запускає цикл програми (головне меню).
-        void Run();
+   // === Властивості (public) ===
+   public:
+      /**
+       * @brief Запустити програму: завантаження, логін, головний цикл.
+       */
+      void Run();
 
-        /// @brief Акуратно зупиняє цикл програми.
-        void Stop();
+      /**
+       * @brief Зупинити головний цикл.
+       */
+      void Stop();
 
-        /// @brief Завантажує всі дані (користувачі та гравці).
-        void LoadAllData() const;
+      /**
+       * @brief Завантажити всі дані з файлів.
+       */
+      void LoadAllData() const;
 
-        /// @brief Зберігає всі дані (користувачі та гравці).
-        void SaveAllData() const;
+      /**
+       * @brief Зберегти всі дані у файли.
+       */
+      void SaveAllData() const;
 
-    // Методи (приватні)
-    private:
-        /// @brief Авторизація користувача з 3 спробами.
-        void authenticateUser();
+   // === Методи (public/private) ===
+   private:
+      /**
+       * @brief Автентифікація користувача (логін/реєстрація/гість).
+       */
+      void authenticateUser();
 
-        /// @brief Відображає головне меню.
-        void displayMainMenu() const;
+      /**
+       * @brief Показати головне меню.
+       */
+      void displayMainMenu() const;
 
-        /// @brief Обробляє вибір у головному меню.
-        void handleMainMenu(int choice);
+      /**
+       * @brief Обробити вибір пункту головного меню.
+       * @param choice Обраний пункт.
+       */
+      void handleMainMenu(int choice);
 
-        /// @brief Відображає довідку.
-        void displayHelp() const;
+      /**
+       * @brief Відобразити довідку (Help).
+       */
+      void displayHelp() const;
 
-        /// @brief Запитує збереження та завершує роботу.
-        void saveAndExit();
+      /**
+       * @brief Запит підтвердження, зберегти і вийти.
+       */
+      void saveAndExit();
 
-        /// @brief Підменю керування гравцями.
-        void displayPlayerMenu() const;
+      // --- Підменю гравців/CRUD ---
+      /**
+       * @brief Показати підменю керування гравцями (CRUD).
+       */
+      void displayPlayerMenu() const;
 
-        /// @brief Потік видалення гравця за ID.
-        void deletePlayerFlow() const;
+      /**
+       * @brief Додати нового гравця (покроковий ввід).
+       */
+      void addPlayerFlow();
 
-        /// @brief Потік додавання гравця.
-        void addPlayerFlow();
+      /**
+       * @brief Видалити гравця за ID.
+       */
+      void deletePlayerFlow() const;
 
-        /// @brief Перегляд усіх гравців.
-        void viewPlayersFlow() const;
+      /**
+       * @brief Редагувати базові дані гравця (ім’я, вік, національність, вартість).
+       */
+      void editPlayerFlow();
 
-        /// @brief Пошук/сортування/фільтрація гравців.
-        void searchPlayerFlow() const;
+      /**
+       * @brief Переглянути всіх гравців.
+       */
+      void viewPlayersFlow() const;
 
-        /// @brief Робота з «ринком» — підписання вільного агента.
-        void transferFlow() const;
+      // --- Пошук/сортування/фільтрація ---
+      /**
+       * @brief Пошук за ім'ям, сортування за рейтингом, фільтрація за статусом.
+       */
+      void searchPlayerFlow() const;
 
-        /// @brief Керування користувачами (тільки Admin).
-        void manageUsersFlow();
+      // --- Трансферний ринок ---
+      /**
+       * @brief Пошук вільного агента і підписання контракту.
+       */
+      void transferFlow() const;
 
-        /// @brief Створення користувача (тільки Admin).
-        static void adminCreateUser();
-    };
+      // --- Користувачі (адмін) ---
+      /**
+       * @brief Підменю керування користувачами (admin).
+       */
+      void manageUsersFlow();
+
+      /**
+       * @brief Створення користувача (admin).
+       */
+      void adminCreateUser();
+
+      // --- Нове: рейтинг/стати/вартість ---
+      /**
+       * @brief Показати рейтинг кожному гравцю та відсортувати склад.
+       */
+      void RatingShowAndSortFlow();
+
+      /**
+       * @brief Змінити ринкову вартість на відсоток (одному або всім).
+       */
+      void AdjustMarketValuePercentFlow();
+
+      /**
+       * @brief Редагувати ігрові стати (шаблон: GK / польові).
+       * @note Виклики конкретних Set-методів у похідних позначено TODO.
+       */
+      void EditPlayerStatsFlow();
+   };
 } // namespace FootballManagement

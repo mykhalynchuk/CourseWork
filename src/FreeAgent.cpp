@@ -197,6 +197,7 @@ namespace FootballManagement
     {
         std::cout << "\n=== ВІЛЬНИЙ АГЕНТ ===\n";
         FieldPlayer::ShowInfo();
+        std::cout << "ID: " << GetPlayerId() << "\n";
         std::cout << "Останній клуб: " << lastClub_
             << " | Місяців без клубу: " << monthsWithoutClub_ << "\n";
         std::cout << "Очікувана зарплата: " << std::fixed <<

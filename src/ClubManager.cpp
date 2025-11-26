@@ -74,6 +74,8 @@ namespace FootballManagement
 
         for (const auto& p : players_)
         {
+            if (!p) continue;
+
             if (p) p->ShowInfo();
             std::cout << "--------------------------------------------\n";
         }
