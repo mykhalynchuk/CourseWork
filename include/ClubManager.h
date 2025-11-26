@@ -22,7 +22,7 @@ namespace FootballManagement
      */
     class ClubManager : public IFileHandler
     {
-        // Поля
+
     private:
         std::vector<std::shared_ptr<Player>> players_; ///< Склад клубу.
         double transferBudget_; ///< Трансферний/зарплатний бюджет (€).

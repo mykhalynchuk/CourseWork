@@ -27,7 +27,6 @@ namespace FootballManagement
         ~FileManager() = default;
 
         // Властивості
-    public:
         /**
          * @brief Повертає повний шлях до файлу в каталозі даних.
          * @param fileName Ім'я файлу (може бути відносним).
@@ -37,7 +36,6 @@ namespace FootballManagement
         GetFullPath(const std::string& fileName) const;
 
         // Методи
-    public:
         /**
          * @brief Гарантує існування каталогу даних (створює за потреби).
          * @return true, якщо каталог існує або був успішно створений.
