@@ -17,16 +17,13 @@ namespace FootballManagement
      */
     class FileManager
     {
-        // Поля
     private:
         std::string directoryPath_ = "data/"; ///< Базовий каталог даних.
 
-        // Конструктор/деструктор
     public:
         FileManager() = default;
         ~FileManager() = default;
 
-        // Властивості
         /**
          * @brief Повертає повний шлях до файлу в каталозі даних.
          * @param fileName Ім'я файлу (може бути відносним).
@@ -35,7 +32,6 @@ namespace FootballManagement
         [[nodiscard]] std::string
         GetFullPath(const std::string& fileName) const;
 
-        // Методи
         /**
          * @brief Гарантує існування каталогу даних (створює за потреби).
          * @return true, якщо каталог існує або був успішно створений.
@@ -79,4 +75,4 @@ namespace FootballManagement
          */
         bool DeleteFile(const std::string& fileName) const;
     };
-} // namespace FootballManagement
+}

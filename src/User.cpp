@@ -8,8 +8,6 @@
 
 namespace FootballManagement
 {
-    // === Конструктори/оператори ===
-
     User::User()
         : userName_("guest"),
           password_(""),
@@ -26,7 +24,8 @@ namespace FootballManagement
         if (userName_.empty())
             throw std::invalid_argument("Логін не може бути порожнім.");
         if (userRole_ != UserRole::Guest && password_.size() < 6)
-            throw std::runtime_error("Пароль має містити щонайменше 6 символів.");
+            throw std::runtime_error(
+                "Пароль має містити щонайменше 6 символів.");
     }
 
     User::User(const User& other)
@@ -72,8 +71,6 @@ namespace FootballManagement
         std::cout << "[ДЕБАГ] Користувача \"" << userName_ << "\" знищено.\n";
     }
 
-    // === Властивості ===
-
     std::string User::GetUserName() const { return userName_; }
     std::string User::GetPassword() const { return password_; }
     UserRole User::GetUserRole() const { return userRole_; }
@@ -84,8 +81,6 @@ namespace FootballManagement
             throw std::invalid_argument("Логін не може бути порожнім.");
         userName_ = userName;
     }
-
-    // === Бізнес-логіка ===
 
     bool User::IsAdmin() const
     {
@@ -149,11 +144,9 @@ namespace FootballManagement
             << "\" вийшов із системи.\n";
     }
 
-    // === Серіалізація/десеріалізація ===
 
     std::string User::Serialize() const
     {
-        // Формат: username:password:roleInt
         std::stringstream ss;
         ss << userName_ << ":" << password_ << ":"
             << static_cast<int>(userRole_);
@@ -194,10 +187,10 @@ namespace FootballManagement
         {
             std::cout << "[ПОМИЛКА] Не вдалося десеріалізувати користувача: "
                 << e.what() << "\n";
-            // Встановлюємо безпечні значення
+
             userName_ = "guest";
             password_.clear();
             userRole_ = UserRole::Guest;
         }
     }
-} // namespace FootballManagement
+}

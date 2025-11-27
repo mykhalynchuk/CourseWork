@@ -1,5 +1,4 @@
-#ifndef FOOTBALL_MANAGEMENT_AUTH_MANAGER_H
-#define FOOTBALL_MANAGEMENT_AUTH_MANAGER_H
+#pragma once
 
 #include <memory>
 #include <string>
@@ -107,8 +106,6 @@ namespace FootballManagement
          */
         bool IsLoggedIn() const;
 
-        // ===== IFileHandler =====
-
         /**
          * @brief Серіалізувати всіх зареєстрованих користувачів у вигляді тексту.
          *
@@ -152,7 +149,5 @@ namespace FootballManagement
          */
         bool guestSessionActive_ = false;
     };
+}
 
-} // namespace FootballManagement
-
-#endif // FOOTBALL_MANAGEMENT_AUTH_MANAGER_H

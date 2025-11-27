@@ -7,12 +7,10 @@
 
 namespace FootballManagement
 {
-    // === Singleton ===
-
     AuthManager::AuthManager()
-          : registeredUsers_(),
-            currentUser_(std::make_shared<User>()), // Guest за замовчуванням
-            guestSessionActive_(false)
+        : registeredUsers_(),
+          currentUser_(std::make_shared<User>()), // Guest за замовчуванням
+          guestSessionActive_(false)
     {
     }
 
@@ -21,8 +19,6 @@ namespace FootballManagement
         static AuthManager instance;
         return instance;
     }
-
-    // === Операції з користувачами ===
 
     bool AuthManager::Register(const std::string& userName,
                                const std::string& password,
@@ -99,7 +95,7 @@ namespace FootballManagement
             std::cout << "[ІНФО] Користувач \"" << currentUser_->GetUserName()
                 << "\" вийшов із системи.\n";
         }
-        currentUser_ = std::make_shared<User>(); // Guest за замовчуванням
+        currentUser_ = std::make_shared<User>();
         guestSessionActive_ = false;
     }
 
@@ -204,8 +200,6 @@ namespace FootballManagement
 
     void AuthManager::Deserialize(const std::string& data)
     {
-        // Підтримуємо десеріалізацію ОДНОГО користувача з рядка.
-        // Для масового завантаження — використовуйте DeserializeAllUsers().
         if (data.empty()) return;
 
         try
@@ -264,7 +258,6 @@ namespace FootballManagement
         }
 
         std::cout << "[ІНФО] Завантажено користувачів: " << count << "\n";
-        // Після масового завантаження — не залогінений (Guest)
         currentUser_ = std::make_shared<User>();
     }
-} // namespace FootballManagement
+}

@@ -9,8 +9,6 @@
 
 namespace FootballManagement
 {
-    // === Конструктори/оператори ===
-
     FreeAgent::FreeAgent()
         : FieldPlayer(),
           expectedSalary_(0.0),
@@ -95,8 +93,6 @@ namespace FootballManagement
             "\" знищено.\n";
     }
 
-    // === Властивості ===
-
     double FreeAgent::GetExpectedSalary() const { return expectedSalary_; }
     std::string FreeAgent::GetLastClub() const { return lastClub_; }
 
@@ -127,8 +123,6 @@ namespace FootballManagement
             << (isAvailable ? " відкрив " : " закрив ")
             << "переговори.\n";
     }
-
-    // === Бізнес-логіка ===
 
     bool FreeAgent::NegotiateOffer(double offer)
     {
@@ -191,8 +185,6 @@ namespace FootballManagement
         return (CalculateValue() > expectedSalary_ * 1.3) && (GetAge() <= 30);
     }
 
-    // === Поліморфні методи ===
-
     void FreeAgent::ShowInfo() const
     {
         std::cout << "\n=== ВІЛЬНИЙ АГЕНТ ===\n";
@@ -212,13 +204,11 @@ namespace FootballManagement
         SetAge(newAge);
         std::cout << "[ІНФО] З днем народження, " << GetName()
             << "! Тепер вам " << newAge << " років.\n";
-        // у вільних агентів очікування часто трохи ростуть з віком
         IncreaseExpectations(3.0);
     }
 
     double FreeAgent::CalculatePerformanceRating() const
     {
-        // Базуємось на статистиці FieldPlayer і штрафуємо за простій без клубу
         const double g = static_cast<double>(GetTotalGoals());
         const double a = static_cast<double>(GetTotalAssists());
         const double kp = static_cast<double>(GetKeyPasses());
@@ -227,14 +217,13 @@ namespace FootballManagement
 
         if (gp <= 0.0)
         {
-            // якщо не грав, рейтинг невисокий, але не нуль
             double base = 5.0 - monthsWithoutClub_ * 0.3;
             if (base < 0.0) base = 0.0;
             return base;
         }
 
         double perMatch = (5.0 * g + 3.0 * a + 1.0 * kp + 1.5 * tk) / gp;
-        perMatch -= monthsWithoutClub_ * 0.2; // штраф за простій
+        perMatch -= monthsWithoutClub_ * 0.2;
         if (perMatch < 0.0) perMatch = 0.0;
         if (perMatch > 10.0) perMatch = 10.0;
         return perMatch;
@@ -242,7 +231,6 @@ namespace FootballManagement
 
     double FreeAgent::CalculateValue() const
     {
-        // Дисконт за місяці без клубу (до -50%)
         double discount = 1.0 - monthsWithoutClub_ * 0.05;
         if (discount < 0.5) discount = 0.5;
         const double perfBonus = CalculatePerformanceRating() * 40'000.0;
@@ -257,17 +245,11 @@ namespace FootballManagement
                    : "Контракт підписано";
     }
 
-    // === Серіалізація/десеріалізація ===
-
     std::string FreeAgent::Serialize() const
     {
-        // JSON-подібний рядок без сторонніх бібліотек
         std::ostringstream ss;
         ss << "{"
-            // базові поля Player
             << SerializeBase() << ","
-
-            // статистика FieldPlayer
             << "\"position\":" << static_cast<int>(GetPosition()) << ","
             << "\"totalGames\":" << GetTotalGames() << ","
             << "\"totalGoals\":" << GetTotalGoals() << ","
@@ -276,7 +258,6 @@ namespace FootballManagement
             << "\"totalTackles\":" << GetTotalTackles() << ","
             << "\"keyPasses\":" << GetKeyPasses() << ","
 
-            // специфіка FreeAgent
             << "\"role\":\"FreeAgent\","
             << "\"expectedSalary\":" << std::fixed << std::setprecision(2) <<
             expectedSalary_ << ","
@@ -289,10 +270,7 @@ namespace FootballManagement
 
     void FreeAgent::Deserialize(const std::string& data)
     {
-        // 1) базові поля Player
         DeserializeBase(data);
-
-        // 2) утиліти вибірки (міні-парсер)
         auto findString = [&](const std::string& key) -> std::string
         {
             const std::string pat = "\"" + key + "\":\"";
@@ -313,7 +291,8 @@ namespace FootballManagement
             while (end < data.size() && (isdigit(
                     static_cast<unsigned char>(data[end])) || data[end] == '.'
                 ||
-                data[end] == '-')) ++end;
+                data[end] == '-'))
+                ++end;
             try { return std::stod(data.substr(start, end - start)); }
             catch (...) { return 0.0; }
         };
@@ -328,7 +307,6 @@ namespace FootballManagement
             return false;
         };
 
-        // 3) позиція
         {
             const std::string k = "\"position\":";
             auto pos = data.find(k);
@@ -342,8 +320,6 @@ namespace FootballManagement
                 SetPosition(static_cast<Position>(p));
             }
         }
-
-        // 4) статистика FieldPlayer — відновлюємо через наявні методи
         const int games = static_cast<int>(findNumber("totalGames"));
         const int goals = static_cast<int>(findNumber("totalGoals"));
         const int assists = static_cast<int>(findNumber("totalAssists"));
@@ -352,12 +328,12 @@ namespace FootballManagement
         const int kpasses = static_cast<int>(findNumber("keyPasses"));
 
         for (int i = 0; i < games; ++i) RegisterMatchPlayed();
-        if (goals > 0 || assists > 0 || shots > 0) UpdateAttackingStats(
-            goals, assists, shots);
+        if (goals > 0 || assists > 0 || shots > 0)
+            UpdateAttackingStats(
+                goals, assists, shots);
         if (tackles > 0) UpdateDefensiveStats(tackles);
         for (int i = 0; i < kpasses; ++i) RegisterKeyPass();
 
-        // 5) власні поля
         const std::string club = findString("lastClub");
         if (!club.empty()) lastClub_ = club;
 
@@ -365,4 +341,4 @@ namespace FootballManagement
         monthsWithoutClub_ = static_cast<int>(findNumber("monthsWithoutClub"));
         availableForNegotiation_ = findBool("available");
     }
-} // namespace FootballManagement
+}

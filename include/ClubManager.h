@@ -1,11 +1,9 @@
 #pragma once
 
-// using
 #include <vector>
 #include <memory>
 #include <string>
 
-// базові залежності
 #include "Player.h"
 #include "FreeAgent.h"
 #include "ContractedPlayer.h"
@@ -22,7 +20,6 @@ namespace FootballManagement
      */
     class ClubManager : public IFileHandler
     {
-
     private:
         std::vector<std::shared_ptr<Player>> players_; ///< Склад клубу.
         double transferBudget_; ///< Трансферний/зарплатний бюджет (€).
@@ -33,7 +30,6 @@ namespace FootballManagement
          */
         int GenerateUniqueId() const;
 
-        // Конструктор/деструктор
     public:
         /**
          * @brief Конструктор.
@@ -46,13 +42,11 @@ namespace FootballManagement
         /// @brief Віртуальний деструктор.
         ~ClubManager() noexcept override = default;
 
-        // Властивості
     public:
         [[nodiscard]] double GetTransferBudget() const;
         void SetTransferBudget(double budget);
         [[nodiscard]] std::string GetClubName() const;
 
-        // Операції з гравцями
     public:
         /**
          * @brief Додати гравця у склад (ID буде проставлено автоматично, якщо 0).
@@ -97,7 +91,6 @@ namespace FootballManagement
                            double salaryOffer,
                            const std::string& contractUntil);
 
-        // Серіалізація/десеріалізація
     public:
         /**
          * @brief Серіалізація у текст: перший рядок — "clubName,budget",
@@ -118,10 +111,9 @@ namespace FootballManagement
          */
         void DeserializeAllPlayers(const std::vector<std::string>& lines);
 
-        // (додатково, за потреби)
         [[nodiscard]] const std::vector<std::shared_ptr<Player>>& GetAll() const
         {
             return players_;
         }
     };
-} // namespace FootballManagement
+}

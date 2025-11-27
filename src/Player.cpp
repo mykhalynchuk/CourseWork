@@ -8,7 +8,6 @@
 
 namespace FootballManagement
 {
-    // === Конструктори/деструктор ===
     Player::Player()
         : playerId_(0),
           name_("Невідомо"),
@@ -36,10 +35,12 @@ namespace FootballManagement
           injured_(false)
     {
         if (age <= 0) throw std::invalid_argument("Вік має бути додатним.");
-        if (height <= 0.0) throw std::invalid_argument(
-            "Зріст має бути додатним.");
-        if (weight <= 0.0) throw std::invalid_argument(
-            "Вага має бути додатною.");
+        if (height <= 0.0)
+            throw std::invalid_argument(
+                "Зріст має бути додатним.");
+        if (weight <= 0.0)
+            throw std::invalid_argument(
+                "Вага має бути додатною.");
         if (marketValue < 0.0)
             throw std::invalid_argument(
                 "Ринкова вартість не може бути від'ємною.");
@@ -108,7 +109,6 @@ namespace FootballManagement
             << "\" (ID: " << playerId_ << ") видалений.\n";
     }
 
-    // === Властивості ===
     int Player::GetPlayerId() const { return playerId_; }
     std::string Player::GetName() const { return name_; }
     int Player::GetAge() const { return age_; }
@@ -182,7 +182,6 @@ namespace FootballManagement
         marketValue_ = value;
     }
 
-    // === Доменні дії ===
     void Player::ReportInjury(const std::string& type, int recoveryDays)
     {
         if (type.empty())
@@ -196,7 +195,6 @@ namespace FootballManagement
         inj.injuryType = type;
         inj.recoveryDays = recoveryDays;
         inj.dateOccurred = "сьогодні";
-        // (спростили; за бажанням можна підставляти ISO-дату)
 
         injuryHistory_.push_back(std::move(inj));
 
@@ -217,10 +215,8 @@ namespace FootballManagement
         if (marketValue_ < 0.0) marketValue_ = 0.0;
     }
 
-    // === Допоміжна серіалізація спільних полів ===
     std::string Player::SerializeBase() const
     {
-        // Повертаємо JSON-фрагмент без дужок { }
         std::ostringstream ss;
         ss << "\"id\":" << playerId_ << ','
             << "\"name\":\"" << name_ << "\","
@@ -236,8 +232,6 @@ namespace FootballManagement
 
     void Player::DeserializeBase(const std::string& json)
     {
-        // Дуже простий парсер ключ-значення (regex); похідні класи можуть
-        // викликати цей метод після власного розбору, щоб заповнити спільні поля.
         std::regex r("\"(.*?)\"\\s*:\\s*\"?(.*?)\"?(,|})");
         auto begin = std::sregex_iterator(json.begin(), json.end(), r);
         auto end = std::sregex_iterator();
@@ -258,4 +252,4 @@ namespace FootballManagement
             else if (key == "injured") injured_ = (value == "true");
         }
     }
-} // namespace FootballManagement
+}

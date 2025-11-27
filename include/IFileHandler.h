@@ -23,11 +23,11 @@ namespace FootballManagement
          * @brief Десеріалізує об'єкт із рядка.
          * @param data Рядок з даними, на основі якого відновлюється об'єкт.
          */
-        virtual void Deserialize(const std::string& data)  = 0;
+        virtual void Deserialize(const std::string& data) = 0;
 
         /**
          * @brief Віртуальний деструктор.
          */
         virtual ~IFileHandler() = default;
     };
-} // namespace FootballManagement
+}

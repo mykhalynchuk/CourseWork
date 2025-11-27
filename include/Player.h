@@ -1,12 +1,10 @@
 #pragma once
 
-// === using ===
 #include <string>
 #include <vector>
-#include "Utils.h"        // тут: enum Position/UserRole/структура Injury
-#include "IFileHandler.h" // інтерфейс серіалізації
+#include "Utils.h"
+#include "IFileHandler.h"
 
-// === namespace ===
 namespace FootballManagement
 {
     /**
@@ -27,7 +25,6 @@ namespace FootballManagement
      */
     class Player : public IFileHandler
     {
-        // === Поля ===
     private:
         int playerId_;
         std::string name_;
@@ -40,7 +37,6 @@ namespace FootballManagement
         bool injured_;
         std::vector<Injury> injuryHistory_;
 
-        // === Конструктори/деструктор ===
     public:
         /// @brief Конструктор за замовчуванням.
         Player();
@@ -74,7 +70,6 @@ namespace FootballManagement
         /// @brief Віртуальний деструктор (із діагностичним повідомленням).
         ~Player() noexcept override;
 
-        // === Властивості (get/set) ===
     public:
         /// @name Гетери
         /// @{
@@ -102,7 +97,6 @@ namespace FootballManagement
         void SetMarketValue(double value);
         /// @}
 
-        // === Абстрактні (чисто віртуальні) методи домену ===
     public:
         /// @brief Повна інформація про гравця.
         virtual void ShowInfo() const = 0;
@@ -119,7 +113,6 @@ namespace FootballManagement
         /// @brief Збільшує вік на 1 рік (день народження).
         virtual void CelebrateBirthday() = 0;
 
-        // === Загальні дії ===
     public:
         /**
          * @brief Повідомити про травму гравця.
@@ -137,7 +130,6 @@ namespace FootballManagement
          */
         void UpdateMarketValue(double percentageChange);
 
-        // === IFileHandler (повна серіалізація реалізується в нащадках) ===
     public:
         /// @brief Серіалізує весь об'єкт (реалізують похідні класи).
         [[nodiscard]] virtual std::string Serialize() const override = 0;
@@ -145,7 +137,6 @@ namespace FootballManagement
         /// @brief Десеріалізує весь об'єкт (реалізують похідні класи).
         virtual void Deserialize(const std::string& data) override = 0;
 
-        // === Допоміжна серіалізація спільних полів для похідних класів ===
     protected:
         /**
          * @brief Серіалізує спільні поля у вигляді фрагмента JSON.
@@ -159,4 +150,4 @@ namespace FootballManagement
          */
         void DeserializeBase(const std::string& json);
     };
-} // namespace FootballManagement
+}

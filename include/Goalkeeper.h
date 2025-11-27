@@ -1,12 +1,8 @@
 #pragma once
 
-// using
 #include <string>
 
-// namespace + enum/struct
 #include "Utils.h"
-
-// базовий клас
 #include "Player.h"
 
 namespace FootballManagement
@@ -18,15 +14,13 @@ namespace FootballManagement
      */
     class Goalkeeper final : public Player
     {
-    // Поля
     private:
-        int matchesPlayed_;   ///< Зіграно матчів.
-        int cleanSheets_;     ///< «Сухих» матчів.
-        int savesTotal_;      ///< Загальна кількість сейвів.
-        int goalsConceded_;   ///< Пропущено голів.
-        int penaltiesSaved_;  ///< Відбиті пенальті.
+        int matchesPlayed_; ///< Зіграно матчів.
+        int cleanSheets_; ///< «Сухих» матчів.
+        int savesTotal_; ///< Загальна кількість сейвів.
+        int goalsConceded_; ///< Пропущено голів.
+        int penaltiesSaved_; ///< Відбиті пенальті.
 
-    // Конструктори/деструктор
     public:
         /// @brief Конструктор за замовчуванням.
         Goalkeeper();
@@ -53,7 +47,6 @@ namespace FootballManagement
         /// @brief Віртуальний деструктор.
         ~Goalkeeper() noexcept override;
 
-    // Властивості
     public:
         [[nodiscard]] int GetMatchesPlayed() const;
         [[nodiscard]] int GetCleanSheets() const;
@@ -61,7 +54,6 @@ namespace FootballManagement
         [[nodiscard]] int GetGoalsConceded() const;
         [[nodiscard]] int GetPenaltiesSaved() const;
 
-    // Операції зі статистикою
     public:
         /**
          * @brief Оновлює статистику після матчу.
@@ -86,7 +78,6 @@ namespace FootballManagement
         /// @brief Скидає сезонну статистику до нуля (з повідомленням).
         void ResetSeasonStats();
 
-    // Поліморфні методи Player
     public:
         /// @brief Повний вивід інформації про воротаря (укр.).
         void ShowInfo() const override;
@@ -103,8 +94,7 @@ namespace FootballManagement
         /// @brief Текстовий статус (активний/травмований).
         [[nodiscard]] std::string GetStatus() const override;
 
-        // Серіалізація/десеріалізація
         [[nodiscard]] std::string Serialize() const override;
         void Deserialize(const std::string& data) override;
     };
-} // namespace FootballManagement
+}

@@ -11,8 +11,6 @@
 
 namespace FootballManagement
 {
-    // === Конструктор/властивості ===
-
     ClubManager::ClubManager(const std::string& name, double budget)
         : players_(),
           transferBudget_(budget),
@@ -35,8 +33,6 @@ namespace FootballManagement
 
     std::string ClubManager::GetClubName() const { return clubName_; }
 
-    // === Службові ===
-
     int ClubManager::GenerateUniqueId() const
     {
         int maxId = 1000;
@@ -47,8 +43,6 @@ namespace FootballManagement
         }
         return maxId + 1;
     }
-
-    // === Операції з гравцями ===
 
     void ClubManager::AddPlayer(std::shared_ptr<Player> p)
     {
@@ -204,11 +198,9 @@ namespace FootballManagement
             return false;
         }
 
-        // Підписали — фіксуємо у вільного агента та оновлюємо бюджет
         player->AcceptContract(clubName_);
         transferBudget_ -= salaryOffer;
 
-        // Якщо гравця ще не було у складі — додаємо
         bool present = false;
         for (const auto& p : players_)
         {
@@ -227,11 +219,8 @@ namespace FootballManagement
         return true;
     }
 
-    // === Серіалізація/десеріалізація ===
-
     std::string ClubManager::Serialize() const
     {
-        // Рядок шапки клубу + гравці построково
         std::ostringstream ss;
         ss << clubName_ << "," << std::fixed << std::setprecision(2) <<
             transferBudget_ << "\n";
@@ -245,7 +234,6 @@ namespace FootballManagement
 
     void ClubManager::Deserialize(const std::string& data)
     {
-        // Простий розбір шапки "clubName,budget"
         if (data.empty()) return;
         try
         {
@@ -288,7 +276,6 @@ namespace FootballManagement
             return;
         }
 
-        // 1) Шапка клубу
         try
         {
             std::stringstream ss(lines[0]);
@@ -312,7 +299,8 @@ namespace FootballManagement
             const std::string& row = lines[i];
             if (row.empty()) continue;
 
-            auto findRole = [&](const std::string& s)->std::string{
+            auto findRole = [&](const std::string& s)-> std::string
+            {
                 const std::string k = "\"role\":\"";
                 const auto pos = s.find(k);
                 if (pos == std::string::npos) return {};
@@ -325,27 +313,33 @@ namespace FootballManagement
             const std::string role = findRole(row);
             std::shared_ptr<Player> p;
 
-            if (role == "FreeAgent") {
+            if (role == "FreeAgent")
+            {
                 auto obj = std::make_shared<FreeAgent>();
                 obj->Deserialize(row);
                 p = obj;
-            } else if (role == "Goalkeeper") {
+            }
+            else if (role == "Goalkeeper")
+            {
                 auto obj = std::make_shared<Goalkeeper>();
                 obj->Deserialize(row);
                 p = obj;
-            } else if (role == "ContractedPlayer") {
+            }
+            else if (role == "ContractedPlayer")
+            {
                 auto obj = std::make_shared<ContractedPlayer>();
                 obj->Deserialize(row);
                 p = obj;
-            } else {
-                std::cout << "[ПОПЕРЕДЖЕННЯ] Невідомий role, рядок пропущено.\n";
+            }
+            else
+            {
+                std::cout <<
+                    "[ПОПЕРЕДЖЕННЯ] Невідомий role, рядок пропущено.\n";
                 continue;
             }
 
-            // Підіймаємо id, якщо 0
             if (p->GetPlayerId() == 0) p->SetPlayerId(GenerateUniqueId());
             players_.push_back(std::move(p));
-
         }
-    } // namespace FootballManagement
+    }
 }

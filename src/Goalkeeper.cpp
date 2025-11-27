@@ -9,8 +9,6 @@
 
 namespace FootballManagement
 {
-    // === Конструктори/оператори ===
-
     Goalkeeper::Goalkeeper()
         : Player(),
           matchesPlayed_(0),
@@ -98,15 +96,11 @@ namespace FootballManagement
         std::cout << "[ДЕБАГ] Воротаря \"" << GetName() << "\" знищено.\n";
     }
 
-    // === Властивості ===
-
     int Goalkeeper::GetMatchesPlayed() const { return matchesPlayed_; }
     int Goalkeeper::GetCleanSheets() const { return cleanSheets_; }
     int Goalkeeper::GetSavesTotal() const { return savesTotal_; }
     int Goalkeeper::GetGoalsConceded() const { return goalsConceded_; }
     int Goalkeeper::GetPenaltiesSaved() const { return penaltiesSaved_; }
-
-    // === Операції зі статистикою ===
 
     void Goalkeeper::UpdateMatchStats(int goalsAgainst, int saves)
     {
@@ -154,7 +148,6 @@ namespace FootballManagement
             << "\" обнулено.\n";
     }
 
-    // === Поліморфні методи Player ===
 
     void Goalkeeper::ShowInfo() const
     {
@@ -184,7 +177,6 @@ namespace FootballManagement
     {
         if (matchesPlayed_ == 0) return 0.0;
 
-        // ваги: clean sheet = 4, пенальті = 3, сейви (у відсотках) / 10
         const double saveFactor = CalculateSavePercentage() / 10.0;
         const double goalsPerGame = static_cast<double>(goalsConceded_) /
             matchesPlayed_;
@@ -209,11 +201,8 @@ namespace FootballManagement
         return IsInjured() ? "Травмований воротар" : "Активний воротар";
     }
 
-    // === Серіалізація/десеріалізація ===
-
     std::string Goalkeeper::Serialize() const
     {
-        // JSON-подібний рядок (без сторонніх бібліотек)
         std::ostringstream ss;
         ss << "{"
             << SerializeBase() << "," // базові поля Player
@@ -229,10 +218,7 @@ namespace FootballManagement
 
     void Goalkeeper::Deserialize(const std::string& data)
     {
-        // Базові поля Player
         DeserializeBase(data);
-
-        // Прості пошуки значень (можна замінити на твій парсер з Utils)
         auto findNumber = [&](const std::string& key, int def = 0) -> int
         {
             const std::string pat = "\"" + key + "\":";
@@ -255,4 +241,4 @@ namespace FootballManagement
         goalsConceded_ = findNumber("goalsConceded", 0);
         penaltiesSaved_ = findNumber("penaltiesSaved", 0);
     }
-} // namespace FootballManagement
+}

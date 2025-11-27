@@ -1,6 +1,5 @@
 #include "../include/InputValidator.h"
 
-// using
 #include <iostream>
 #include <limits>
 #include <algorithm>
@@ -99,4 +98,4 @@ namespace FootballManagement
             std::cout << "[ПОМИЛКА] Введіть 'Y' або 'N'.\n";
         }
     }
-} // namespace FootballManagement
+}

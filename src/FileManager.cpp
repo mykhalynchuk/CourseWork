@@ -1,6 +1,5 @@
 #include "../include/FileManager.h"
 
-// using
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -13,7 +12,6 @@ namespace FootballManagement
 {
     std::string FileManager::GetFullPath(const std::string& fileName) const
     {
-        // Акуратно будуємо шлях через std::filesystem::path
         fs::path base(directoryPath_);
         fs::path file(fileName);
         fs::path full = base / file;
@@ -152,7 +150,7 @@ namespace FootballManagement
                     "\n";
                 return true;
             }
-            // файл не існував або не був видалений
+
             std::cout << "[ПОПЕРЕДЖЕННЯ] Файл не видалено (можливо, не існує): "
                 << fileName << "\n";
             return false;
@@ -164,4 +162,4 @@ namespace FootballManagement
             return false;
         }
     }
-} // namespace FootballManagement
+}

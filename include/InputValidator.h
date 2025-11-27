@@ -1,6 +1,5 @@
 #pragma once
 
-// using
 #include <string>
 
 namespace FootballManagement
@@ -14,18 +13,12 @@ namespace FootballManagement
      */
     class InputValidator
     {
-        // Поля
     private:
-        // (немає полів)
 
-        // Конструктори/деструктор
     public:
         InputValidator() = delete; ///< Заборонено створювати екземпляри.
         ~InputValidator() = delete; ///< Заборонено знищувати екземпляри.
 
-        // Властивості (немає)
-
-        // Методи
     public:
         /**
          * @brief Зчитує ціле число з підказкою.
@@ -66,9 +59,8 @@ namespace FootballManagement
          */
         [[nodiscard]] static bool GetYesNoInput(const std::string& prompt);
 
-        // Приватні допоміжні
     private:
         /// @brief Очищає стан потоку вводу та скидає буфер до кінця рядка.
         static void ClearInputBuffer();
     };
-} // namespace FootballManagement
+}

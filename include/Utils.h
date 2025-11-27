@@ -9,8 +9,6 @@ namespace FootballManagement
      * @brief Допоміжні структури, константи та перелічення для системи керування футбольним клубом.
      */
 
-    // === Константи файлів та налаштувань ===
-
     /// @brief Ім'я файлу, у якому зберігаються користувачі.
     constexpr const char* USERS_FILE_NAME   = "users.txt";
 
@@ -24,8 +22,6 @@ namespace FootballManagement
     const std::string DEFAULT_ADMIN_PASSWORD = "admin123";
 
     constexpr const char* PLAYERS_DATA_FILE = "players.txt";
-
-    // === Перелічення ролей та позицій ===
 
     /**
      * @enum UserRole
@@ -50,8 +46,6 @@ namespace FootballManagement
         Forward ///< Нападник
     };
 
-    // === Структури ===
-
     /**
      * @struct Injury
      * @brief Представляє інформацію про травму футболіста.
@@ -64,4 +58,4 @@ namespace FootballManagement
         ///< Дата, коли сталася травма (у форматі YYYY-MM-DD).
         int recoveryDays; ///< Орієнтовна кількість днів на відновлення.
     };
-} // namespace FootballManagement
+}

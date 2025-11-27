@@ -7,7 +7,6 @@
 
 namespace
 {
-    // Локальна утиліта для красивого виводу позиції
     std::string PositionToString(FootballManagement::Position p)
     {
         using FootballManagement::Position;
@@ -128,7 +127,6 @@ namespace FootballManagement
             << "\" знищено.\n";
     }
 
-    // Властивості
     int FieldPlayer::GetTotalGames() const { return totalGames_; }
     int FieldPlayer::GetTotalGoals() const { return totalGoals_; }
     int FieldPlayer::GetTotalAssists() const { return totalAssists_; }
@@ -142,7 +140,6 @@ namespace FootballManagement
         position_ = position;
     }
 
-    // Статистика
     void FieldPlayer::UpdateAttackingStats(int goals, int assists, int shots)
     {
         if (goals < 0 || assists < 0 || shots < 0)
@@ -192,7 +189,6 @@ namespace FootballManagement
             << "\" обнулено.\n";
     }
 
-    // Вивід
     void FieldPlayer::ShowInfo() const
     {
         std::cout << "\n=== Інформація про польового гравця ===\n";
@@ -222,4 +218,4 @@ namespace FootballManagement
             << "! Тепер вам " << newAge << " років. "
             << "Бажаємо нових перемог!\n";
     }
-} // namespace FootballManagement
+}

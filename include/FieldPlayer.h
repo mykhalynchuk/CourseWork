@@ -14,7 +14,6 @@ namespace FootballManagement
      */
     class FieldPlayer : public Player
     {
-        // Поля
     private:
         int totalGames_;
         int totalGoals_;
@@ -24,7 +23,6 @@ namespace FootballManagement
         int keyPasses_;
         Position position_;
 
-        // Конструктори/деструктор
     public:
         /// @brief Конструктор за замовчуванням.
         FieldPlayer();
@@ -52,7 +50,6 @@ namespace FootballManagement
         /// @brief Віртуальний деструктор.
         ~FieldPlayer() override;
 
-        // Властивості
     public:
         [[nodiscard]] int GetTotalGames() const;
         [[nodiscard]] int GetTotalGoals() const;
@@ -65,7 +62,6 @@ namespace FootballManagement
         /// @brief Встановлює ігрову позицію.
         void SetPosition(Position position);
 
-        // Методи статистики
     public:
         /**
          * @brief Оновлює атакувальну статистику (накопичувально).
@@ -97,7 +93,6 @@ namespace FootballManagement
         /// @brief День народження: збільшує вік на 1 рік (український вивід).
         void CelebrateBirthday() override;
 
-        // Чисто віртуальні методи, які мають реалізувати нащадки
     public:
         [[nodiscard]] virtual double CalculateValue() const override = 0;
         [[nodiscard]] virtual double
@@ -106,4 +101,4 @@ namespace FootballManagement
         [[nodiscard]] virtual std::string Serialize() const override = 0;
         virtual void Deserialize(const std::string& data) override = 0;
     };
-} // namespace FootballManagement
+}

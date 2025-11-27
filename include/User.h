@@ -1,12 +1,7 @@
 #pragma once
 
-// using
 #include <string>
-
-// namespace + enum/struct
 #include "Utils.h"
-
-// інтерфейс серіалізації
 #include "IFileHandler.h"
 
 namespace FootballManagement
@@ -18,13 +13,11 @@ namespace FootballManagement
      */
     class User : public IFileHandler
     {
-        // Поля
     private:
         std::string userName_; ///< Логін користувача.
         std::string password_; ///< Пароль користувача (демо, без хешування).
         UserRole userRole_; ///< Роль: Admin / StandardUser / Guest.
 
-        // Конструктори/деструктор
     public:
         /** @brief Конструктор за замовчуванням (гостьовий користувач). */
         User();
@@ -54,7 +47,6 @@ namespace FootballManagement
         /** @brief Деструктор (виводить діагностичне повідомлення). */
         ~User() noexcept override;
 
-        // Властивості
     public:
         /** @brief Повертає логін користувача. */
         [[nodiscard]] std::string GetUserName() const;
@@ -71,7 +63,6 @@ namespace FootballManagement
          */
         void SetUserName(const std::string& userName);
 
-        // Бізнес-логіка
     public:
         /** @brief Перевіряє, чи користувач має права адміністратора. */
         [[nodiscard]] bool IsAdmin() const;
@@ -108,7 +99,6 @@ namespace FootballManagement
          */
         void Logout();
 
-        // Серіалізація/десеріалізація
     public:
         /**
          * @brief Серіалізує у формат "username:password:roleInt".
@@ -121,4 +111,4 @@ namespace FootballManagement
          */
         void Deserialize(const std::string& data) override;
     };
-} // namespace FootballManagement
+}

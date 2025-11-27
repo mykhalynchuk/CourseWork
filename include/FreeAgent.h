@@ -1,12 +1,7 @@
 #pragma once
 
-// using
 #include <string>
-
-// namespace + enum/struct
 #include "Utils.h"
-
-// базовий клас
 #include "FieldPlayer.h"
 
 namespace FootballManagement
@@ -64,18 +59,15 @@ namespace FootballManagement
         /** @brief Деструктор. */
         ~FreeAgent() noexcept override;
 
-        // Гетери
         [[nodiscard]] double GetExpectedSalary() const;
         [[nodiscard]] std::string GetLastClub() const;
         [[nodiscard]] bool IsAvailableForNegotiation() const;
         [[nodiscard]] int GetMonthWithoutClub() const;
 
-        // Сетери
         void SetLastClub(const std::string& lastClub);
         void SetMonthWithoutClub(int months);
         void SetAvailability(bool isAvailable);
 
-        // Бізнес-логіка
         /**
          * @brief Переговори щодо пропозиції зарплати.
          * @param offer Запропонована клубом зарплата (€).
@@ -107,15 +99,14 @@ namespace FootballManagement
          */
         [[nodiscard]] bool IsBargain() const;
 
-        // Поліморфні методи
         void ShowInfo() const override;
         void CelebrateBirthday() override;
         [[nodiscard]] double CalculateValue() const override;
         [[nodiscard]] std::string GetStatus() const override;
         [[nodiscard]] double CalculatePerformanceRating() const override;
 
-        // Серіалізація/десеріалізація
+
         [[nodiscard]] std::string Serialize() const override;
         void Deserialize(const std::string& data) override;
     };
-} // namespace FootballManagement
+}

@@ -8,8 +8,6 @@
 
 namespace FootballManagement
 {
-    // === Конструктори/оператори ===
-
     ContractedPlayer::ContractedPlayer()
         : FieldPlayer(),
           contractDetails_(),
@@ -95,7 +93,6 @@ namespace FootballManagement
             "\" видалено.\n";
     }
 
-    // === Гетери ===
     bool ContractedPlayer::IsListedForTransfer() const
     {
         return listedForTransfer_;
@@ -106,10 +103,8 @@ namespace FootballManagement
     ContractDetails ContractedPlayer::GetContractDetails() const
     {
         return contractDetails_;
-        // копія; за потреби можна додати геттер-посилання
     }
 
-    // === Операції з контрактом/трансфером ===
     void ContractedPlayer::ListForTransfer(double fee,
                                            const std::string& conditions)
     {
@@ -169,10 +164,9 @@ namespace FootballManagement
         const double oldSalary = contractDetails_.GetSalary();
         contractDetails_.ExtendContractDate(newDate);
 
-        // змінюємо зарплату у відсотках, щоб зберегти єдину логіку
         const double perc = (oldSalary > 0.0)
                                 ? ((newSalary - oldSalary) / oldSalary) * 100.0
-                                : 100.0; // якщо стара була 0 → просто +100%
+                                : 100.0;
         contractDetails_.AdjustSalary(perc);
 
         std::cout << "[ІНФО] Контракт " << GetName() << " продовжено до "
@@ -195,7 +189,6 @@ namespace FootballManagement
             << otherClub << " до " << endDate << ".\n";
     }
 
-    // === Інформаційні методи/поліморфізм ===
     void ContractedPlayer::ShowInfo() const
     {
         std::cout << "\n=== КОНТРАКТНИЙ ГРАВЕЦЬ ===\n";
@@ -229,8 +222,6 @@ namespace FootballManagement
 
     double ContractedPlayer::CalculatePerformanceRating() const
     {
-        // Проста формула за статистикою польового гравця
-        // (ти можеш підкоригувати ваги під вимоги завдання)
         const double g = static_cast<double>(GetTotalGoals());
         const double a = static_cast<double>(GetTotalAssists());
         const double kp = static_cast<double>(GetKeyPasses());
@@ -239,10 +230,8 @@ namespace FootballManagement
 
         if (gp <= 0.0) return 0.0;
 
-        // ваги: гол 5, ассіст 3, ключовий пас 1, відбір 1.5 (усе на матч)
         const double perMatch = (5.0 * g + 3.0 * a + 1.0 * kp + 1.5 * tk) / gp;
 
-        // Нормалізуємо у [0..10]
         const double rating = std::min(10.0, perMatch);
         return rating;
     }
@@ -262,10 +251,8 @@ namespace FootballManagement
         return "Активний гравець";
     }
 
-    // === Серіалізація/десеріалізація ===
     std::string ContractedPlayer::Serialize() const
     {
-        // Формуємо JSON-об’єкт вручну (без зовнішніх бібліотек)
         std::ostringstream ss;
         ss << "{"
 
@@ -281,7 +268,6 @@ namespace FootballManagement
             << "\"keyPasses\":" << GetKeyPasses() << ","
 
 
-            // контракт
             << "\"clubName\":\"" << contractDetails_.GetClubName() << "\","
             << "\"previousClub\":\"" << previousClub_ << "\","
 
@@ -299,8 +285,6 @@ namespace FootballManagement
                 "\",";
         }
         ss << ","
-
-            // трансфер
             <<
             "\"listedForTransfer\":" << (listedForTransfer_
                                              ? "true"
@@ -396,17 +380,12 @@ namespace FootballManagement
                 }
                 else
                 {
-                    // fallback: можна не вмикати оренду без дати, або
-                    // обрати розумну дефолтну (наприклад, кінець поточного контракту)
-                    // contractDetails_.SetOnLoan(contractDetails_.GetContractUntil());
                 }
             }
             catch (const std::exception& e)
             {
                 std::cout << "[ПОПЕРЕДЖЕННЯ] Некоректна loanEndDate у даних: "
                     << e.what() << "\n";
-                // Безпечний варіант: залишити без оренди або повернути з оренди
-                // contractDetails_.ReturnFromLoan();
             }
         }
         else
@@ -421,4 +400,4 @@ namespace FootballManagement
         const std::string prev = findString("previousClub");
         if (!prev.empty()) previousClub_ = prev;
     }
-} // namespace FootballManagement
+}

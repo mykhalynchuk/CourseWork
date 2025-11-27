@@ -8,19 +8,17 @@ int main()
 {
     using namespace FootballManagement;
 
-    // пришвидшуємо консольний ввід/вивід
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
 
     try
     {
-        // Ініціалізуємо клуб і меню
         auto club = std::make_shared<ClubManager>("Динамо Київ", 50'000'000.0);
 
         Menu menu(club);
         menu.Run();
 
-        return 0; // акуратне завершення
+        return 0;
     }
     catch (const std::exception& e)
     {

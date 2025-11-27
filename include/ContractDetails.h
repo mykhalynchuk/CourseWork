@@ -52,7 +52,6 @@ namespace FootballManagement
         /// @brief Деструктор за замовчуванням.
         ~ContractDetails() = default;
 
-        // Гетери
         [[nodiscard]] std::string GetClubName() const;
         [[nodiscard]] double GetSalary() const;
         [[nodiscard]] std::string GetContractUntil() const;
@@ -61,7 +60,6 @@ namespace FootballManagement
         [[nodiscard]] bool IsExpiringSoon() const; // ≤ 6 міс від сьогодні
         [[nodiscard]] std::string GetLoanEndDate() const;
 
-        // Сетери / дії
         void SetClubName(const std::string& clubName);
         void SetSalary(double salary);
         void SetContractUntil(const std::string& contractUntil);
@@ -90,4 +88,4 @@ namespace FootballManagement
         /// @brief Виводить інформацію про контракт у консоль (укр.).
         void ShowDetails() const;
     };
-} // namespace FootballManagement
+}
